@@ -1,0 +1,107 @@
+﻿<div class="modal-header">
+    <h1>Create New Customer</h1>
+</div>
+
+<div class="modal-body">
+    <form  name="customerForm" novalidate class="form-horizontal" role="form">
+        <fieldset>
+            <legend>Customer Information</legend>
+            <div class="form-group" ng-class="{'has-error': customerForm.fullName.$invalid && customerForm.fullName.$dirty}">
+                <label for="fullName" class="col-sm-2 control-label">Full Name</label>
+                <div class="col-sm-4">
+                    <input type="text" id="fullName" name="fullName" class="form-control"
+                           ng-model="editableCustomer.fullName" ng-required="true"
+                           ng-pattern=""/>
+                    <span class="help-block" ng-show="customerForm.fullName.$error.required && customerForm.fullName.$dirty">Full Name is required</span>
+                </div>
+            </div>
+
+            <div class="form-group" ng-class="{'has-error': customerForm.email.$invalid && customerForm.email.$dirty}">
+                <label for="email" class="col-sm-2 control-label">email</label>
+                <div class="col-sm-4">
+                    <input type="email" id="email" name="email" class="form-control"
+                           ng-model="editableCustomer.email" />
+                    <span class="help-block" ng-show="customerForm.email.$invalid && customerForm.email.$dirty">Valid email is required</span>
+                </div>
+            </div>
+
+            <div class="form-group">
+                <label for="paymentRate" class="col-sm-2 control-label">Payment Rate</label>
+                <div class="col-sm-4">
+                    <span uib-rating ng-model="paymentRate" 
+                                     max="5" on-hover="hoveringOver(value)" on-leave="overStar = null" aria-labelledby="default-rating"></span>
+                </div>
+                <span class="label" ng-class="{'label-warning': percent<30, 'label-info': percent>=30 && percent<70, 'label-success': percent>=70}" 
+                                    ng-show="overStar">{{percent}}%</span>
+            </div>
+
+        </fieldset>
+        <br />
+        <fieldset>
+            <legend>Subscription Details</legend>
+            <div class="form-group">
+                <label for="subscriptionType" class="col-sm-2 control-label">Subscription Type</label>
+                <div class="col-sm-4">
+                    <select name="subscriptionType" id="subscriptionType" class="formcontrol"
+                            ng-model="editableCustomer.subscriptionType"
+                            ng-options="subs for subs in subscriptionType"></select>
+                </div>
+            </div>
+
+            <div class="form-group">
+                <label for="subscriptionDate" class="col-sm-2 control-label">Subscription Start Date</label>
+                <input type="text" class="col-sm-4" uib-datepicker-popup="{{format}}" ng-model="editableCustomer.subscriptionDate" is-open="popup1.opened" datepicker-options="dateOptions" ng-required="true" close-text="Close"/>
+                <span class="input-group-btn">
+                    <button type="button" class="btn btn-default" ng-click="open1()"><i class="glyphicon glyphicon-calendar"></i></button>
+                </span>
+               
+            </div>
+
+            <div class="form-group">
+
+                <div class="col-sm-2">
+                    <div class="checkbox">
+                        <label>
+                            <input type="checkbox" value="isSubscribed"
+                                   ng-model="editableCustomer.isSubscribed" />Subscribed Customer
+                        </label>
+                    </div>
+                    <br />
+                </div>
+            </div>
+
+            <div class="form-group">
+                <div class="col-sm-4">
+                    <div class="checkbox">
+                        <label>
+                            <input type="checkbox" value="hasDetails"
+                                   ng-click="isCollapsed = !isCollapsed"
+                                   ng-model="editableCustomer.hasDetails" />Subscription Details?
+                        </label>
+                    </div>
+                    <br />
+                </div>
+            </div>
+            <div uib-collapse="!isCollapsed" class="form-group">
+                <label for="subscriptionDetails" class="col-sm-2 control-label">
+
+                </label>
+                <div class="col-sm-4">
+                    <textarea name="notes"  id="notes" class="form-control" rows="5" cols="30"
+                              ng-model="editableCustomer.subscriptionDetails"></textarea>
+                </div>
+            </div>
+        </fieldset>
+
+       
+    </form>
+</div>
+
+<div class="modal-footer">
+    <div class="col-sm-offset-3 col-sm-9">
+        <input type="button" value="Cancel" class="btn btn-primary"
+               ng-click="cancelForm()" />
+        <input type="submit" value="Submit" class="btn btn-primary"
+               ng-click="submitForm()" ng-disabled="customerForm.$invalid"/>
+    </div>
+</div>

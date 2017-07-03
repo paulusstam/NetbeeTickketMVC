@@ -26,6 +26,20 @@ namespace NetbeeTickketMVC
             bundles.Add(new StyleBundle("~/Content/css").Include(
                       "~/Content/bootstrap.css",
                       "~/Content/site.css"));
+
+            bundles.Add(new StyleBundle("~/bundles/mini-spa/style").Include(
+                     "~/Content/bootstrap.css",
+                     "~/Content/app.css"));
+
+            bundles.Add(new ScriptBundle("~/bundles/mini-spa/script").Include(
+                     "~/Scripts/angular.js",
+                     "~/Scripts/angular-route.js",
+                     "~/Scripts/angular-ui/ui-bootstrap-tpls.min.js",
+                     "~/App/NetBeeTicketApp.js",
+                     "~/App/CustomerForm/ntController.js", 
+                     "~/App/CustomerForm/ntDirective.js", 
+                     "~/App/DataService.js"));
+
         }
     }
 }
